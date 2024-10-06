@@ -1,15 +1,11 @@
 import {Button, Form, FormInput, FormTextArea, Segment} from "semantic-ui-react";
-import {Activity} from "../../app/models/activity.ts";
 import {ChangeEvent, useState} from "react";
-interface Props {
-    activity: Activity | undefined;
-    closeForm: ()=> void;
-    createOrEdit: (activity: Activity) => void;
-    submitting: boolean;
+import {useStore} from "../../app/stores/store.ts";
+import {observer} from "mobx-react-lite";
 
-
-}
-export default function ActivityForm({activity: selectedActivity, closeForm, createOrEdit, submitting}: Props) {
+export default observer(function ActivityForm() {
+    const {activityStore} = useStore();
+    const {selectedActivity, closeForm, createActivity, updateActivity, loading} = activityStore; 
     
     const initialState = selectedActivity ?? {
         id: '',
@@ -24,7 +20,7 @@ export default function ActivityForm({activity: selectedActivity, closeForm, cre
     const [activity, setActivity] = useState(initialState);
     
     function handleSubmit(){
-        createOrEdit(activity);
+        activity.id ? updateActivity(activity) : createActivity(activity);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -41,9 +37,9 @@ export default function ActivityForm({activity: selectedActivity, closeForm, cre
                 <FormInput type='date' placeholder='Date' value={activity.date} name='date' onChange={handleInputChange} /> 
                 <FormInput placeholder='City' value={activity.city} name='city' onChange={handleInputChange} /> 
                 <FormInput placeholder='Venue' value={activity.venue} name='venue' onChange={handleInputChange} />
-                <Button loading={submitting} floated='right' positive type='submit' content='Submit' />
+                <Button loading={loading} floated='right' positive type='submit' content='Submit' />
                 <Button onClick={closeForm} floated='right' content='Cancel' />
             </Form>
         </Segment>
     )
-}
+})
