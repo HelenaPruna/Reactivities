@@ -18,10 +18,10 @@ export default observer(function NavBar(){
                     <Button as={NavLink} to='/createActivity' positive content={"Create Activity"}/>
                 </MenuItem>
                 <MenuItem position='right'>
-                    <Image src={user?.Image || '/assets/user.png'} avatar spaced='right' />
+                    <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />
                     <Dropdown pointing='top left' text={user?.displayName}>
                         <DropdownMenu>
-                            <DropdownItem as={Link} to={`/profile/${user?.username}`} text='My Profile' icon='user' />
+                            <DropdownItem as={Link} to={`/profiles/${user?.username}`} text='My Profile' icon='user' />
                             <DropdownItem onClick={logout} text='Logout' icon='power' />
                         </DropdownMenu>
                     </Dropdown>
