@@ -80,6 +80,7 @@ const Account = {
     current: () => requests.get<User>('account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+    
 }
 
 const Profiles = {
@@ -92,7 +93,9 @@ const Profiles = {
         })
     },
     setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
-    deletePhoto: (id: string) => requests.del(`/photos/${id}`)
+    deletePhoto: (id: string) => requests.del(`/photos/${id}`),
+    
+    updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile)
 }
 
 const agent = {
