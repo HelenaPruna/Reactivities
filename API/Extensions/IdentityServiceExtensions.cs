@@ -30,6 +30,19 @@ public static class IdentityServiceExtensions
                 ValidateIssuer = false,
                 ValidateAudience = false
             };
+            
+            opt.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["access_token"];
+                    var path = context.Request.Path;
+                    if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat"))) 
+                        context.Token = accessToken;
+                    return Task.CompletedTask;
+                }
+            };
+            
         });
 
         //this function is the improved conf of authorization of asp.net core 7.0 it should work but otherwise

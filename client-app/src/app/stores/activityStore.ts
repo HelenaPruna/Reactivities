@@ -48,7 +48,7 @@ export default class ActivityStore {
     loadActivity = async (id: string) => {
         let activity = this.getActivity(id);
         if(activity) {
-            this.selectedActivity = activity;
+            runInAction(() => this.selectedActivity = activity);
             return activity;
         }
         else {
@@ -57,7 +57,6 @@ export default class ActivityStore {
                 activity = await agent.Activities.details(id);
                 this.setActivity(activity);
                 runInAction(() => this.selectedActivity = activity);
-                this.selectedActivity = activity;
                 this.setLoadingInitial(false);
                 return activity;
             }catch (error) {
@@ -153,7 +152,7 @@ export default class ActivityStore {
                     this.selectedActivity!.isGoing = true;
                 }
                 this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!)
-            })
+            });
         }catch (err) {
             console.log(err);
         } finally {
