@@ -19,7 +19,7 @@ import {format} from "date-fns";
 
 export default observer(function ProfileActivities(){
     const {profileStore} = useStore();
-    const {profile, userActivities,loadActivities } = profileStore;
+    const {profile, userActivities, loadingActivities, loadActivities } = profileStore;
 
     const panes = [
         {menuItem: 'Future activities', pane: {key: 'future'}},
@@ -36,7 +36,7 @@ export default observer(function ProfileActivities(){
     };
     
     return (
-        <TabPane >
+        <TabPane loading={loadingActivities}>
             <Grid>
                 <Grid.Column width={16}>
                     <Header floated='left' icon='calendar' content={'Activities'} />
