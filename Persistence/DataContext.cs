@@ -20,10 +20,17 @@ namespace Persistence
         {
             base.OnModelCreating(builder);
             builder.Entity<ActivityAttendee>(x => x.HasKey(aa => new { aa.AppUserId, aa.ActivityId }));
+            
+            builder.Entity<ActivityAttendee>()
+                .HasOne(u => u.AppUser)
+                .WithMany(u => u.Activities)
+                .HasForeignKey(aa => aa.AppUserId);
+
             builder.Entity<ActivityAttendee>()
                 .HasOne(u => u.Activity)
-                .WithMany(a => a.Attendees)
+                .WithMany(u => u.Attendees)
                 .HasForeignKey(aa => aa.ActivityId);
+
             builder.Entity<Comment>()
                 .HasOne(a => a.Activity)
                 .WithMany(c => c.Comments)
@@ -32,14 +39,16 @@ namespace Persistence
             builder.Entity<UserFollowing>(b =>
             {
                 b.HasKey(k => new { k.ObserverId, k.TargetId });
+
                 b.HasOne(o => o.Observer)
                     .WithMany(f => f.Followings)
                     .HasForeignKey(o => o.ObserverId)
                     .OnDelete(DeleteBehavior.Cascade);
+
                 b.HasOne(o => o.Target)
                     .WithMany(f => f.Followers)
                     .HasForeignKey(o => o.TargetId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
         }
     }
