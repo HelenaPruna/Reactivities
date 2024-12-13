@@ -56,7 +56,8 @@ public class AccountController : ControllerBase
         {
             UserName = registerDto.Username,
             Email = registerDto.Email,
-            DisplayName = registerDto.DisplayName
+            DisplayName = registerDto.DisplayName,
+            Icon = RandomColor()
         };
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -68,6 +69,14 @@ public class AccountController : ControllerBase
         return BadRequest(new { errors });
         
     }
+    
+    private string RandomColor() 
+    {
+        string[] semanticColors = ["Red", "Orange", "Yellow", "Olive", "Green", "Teal", "Blue", "Violet", 
+            "Purple", "Pink", "Brown", "Grey", "Black" ];
+        var pos = new Random().Next(0, semanticColors.Length);
+        return semanticColors[pos];
+    } 
     
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
@@ -84,8 +93,10 @@ public class AccountController : ControllerBase
                 DisplayName = user.DisplayName,
                 Token = _tokenService.CreateToken(user),
                 Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
-                Username = user.UserName
+                Username = user.UserName,
+                Icon = user.Icon
             };
         }
+    
 }
 

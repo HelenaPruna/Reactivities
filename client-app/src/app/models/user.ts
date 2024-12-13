@@ -1,8 +1,12 @@
+import {SemanticCOLORS} from "semantic-ui-react";
+
 export interface User{
     username: string;
     displayName: string;
     token: string;
     image?: string;
+    icon?: SemanticCOLORS;
+
 }
 
 export interface UserFormValues{

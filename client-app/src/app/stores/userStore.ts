@@ -3,6 +3,23 @@ import {makeAutoObservable, runInAction} from "mobx";
 import agent from "../api/agent.ts";
 import {store} from "./store.ts";
 import {router} from "../router/Routes.tsx";
+import {SemanticCOLORS} from "semantic-ui-react";
+
+const colors: SemanticCOLORS[] = [
+    'red',
+    'orange',
+    'yellow',
+    'olive',
+    'green',
+    'teal',
+    'blue',
+    'violet',
+    'purple',
+    'pink',
+    'brown',
+    'grey',
+    'black',
+]
 
 export default class UserStore {
     user: User | null = null;
@@ -18,8 +35,11 @@ export default class UserStore {
     login = async (creds: UserFormValues) => {
         const user = await agent.Account.login(creds);
         store.commonStore.setToken(user.token);
-        runInAction(() => this.user = user);
-        router.navigate('/activities');
+        runInAction(() => {
+            this.user = user;
+            if (!this.user.icon) this.setIcon();
+        });
+        await router.navigate('/activities');
         store.modalStore.closeModal();
     }
 
@@ -27,8 +47,11 @@ export default class UserStore {
         try {
             const user = await agent.Account.register(creds);
             store.commonStore.setToken(user.token);
-            runInAction(() => this.user = user);
-            router.navigate('/activities');
+            runInAction(() => {
+                this.user = user;
+                this.setIcon();
+            });
+            await router.navigate('/activities');
             store.modalStore.closeModal();
         } catch (error) {
             throw error;
@@ -57,6 +80,9 @@ export default class UserStore {
     setDisplayName = (name: string) => {
         if (this.user) this.user.displayName = name;
     }
-    
-    
+
+    setIcon = () => {
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        if (this.user) this.user.icon = colors[randomIndex];
+    }
 }
