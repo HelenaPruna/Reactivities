@@ -3,8 +3,8 @@ import {Activity, ActivityFormValues} from "../models/activity.ts";
 import {toast} from "react-toastify";
 import {router} from "../router/Routes.tsx";
 import {store} from "../stores/store.ts";
-import {User, UserFormValues} from "../models/user.ts";
-import {Photo, Profile, UserActivity} from "../models/profile.ts";
+import {User, UserFormValues, UserIdentifier} from "../models/user.ts";
+import {Profile, UserActivity} from "../models/profile.ts";
 import {PaginatedResult} from "../models/pagination.ts";
 
 const sleep = (delay:number) => {
@@ -86,28 +86,17 @@ const Activities = {
 const Account = {
     current: () => requests.get<User>('account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
-    
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
+    getUserIdentifiers: () => requests.get<UserIdentifier[]>('/account/users/identifiers')
 }
 
 const Profiles = {
     get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
-    uploadPhoto: (file: any) => {
-        let formData = new FormData();
-        formData.append('File', file);
-        return axios.post<Photo>('photos', formData, {
-            headers: {'Content-Type': 'multipart/form-data'}
-        })
-    },
-    setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
-    deletePhoto: (id: string) => requests.del(`/photos/${id}`),
     updateProfile: (profile: Partial<Profile>) => requests.put(`/profiles`, profile),
-    updateFollowing: (username: string) => requests.post(`/follow/${username}`, {}),
-    listFollowings: (username: string, predicate: string) => 
-        requests.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
     listActivities: (username: string, predicate: string) => 
         requests.get<UserActivity[]>(`/profiles/${username}/activities?predicate=${predicate}`)
 }
+
 
 const agent = {
     Activities,

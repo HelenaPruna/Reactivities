@@ -4,7 +4,7 @@ import {
     ItemContent,
     ItemDescription,
     ItemGroup,
-    ItemHeader, ItemImage, Label,
+    ItemHeader, Label,
     Segment,
     SegmentGroup
 } from "semantic-ui-react";
@@ -26,9 +26,17 @@ export default function ActivityListItem({activity}: Props) {
                 }
                 <ItemGroup>
                     <Item>
-                        <ItemImage style={{marginBottom: 5}} size={'tiny'} circular 
-                                   src={activity.host?.image || '/assets/user.png'} />
-                        <ItemContent>
+                        <Label circular  style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "50px", // Adjust size as needed
+                            height: "50px", // Equal width and height ensure a perfect circle
+                            fontSize: "20px", // Adjust font size to fit inside
+                            padding: 0, // Remove any default padding
+                            }} 
+                               color={activity.host?.icon} content={activity.host?.displayName[0]}  />
+                        <ItemContent style={{marginLeft: 5}} >
                             <ItemHeader as={Link} to={`/activities/${activity.id}`} >{activity.title}</ItemHeader>
                             <ItemDescription>Hosted by <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link> </ItemDescription>
                             {activity.isHost && (

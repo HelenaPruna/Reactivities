@@ -15,3 +15,8 @@ export interface UserFormValues{
     displayName?: string;
     username?: string;
 }
+
+export interface UserIdentifier {
+    username: string;
+    displayName: string;
+}

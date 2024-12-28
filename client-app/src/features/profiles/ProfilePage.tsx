@@ -1,6 +1,5 @@
 import {Grid} from "semantic-ui-react";
 import ProfileHeader from "./ProfileHeader.tsx";
-//import ProfileContent from "./ProfileContent.tsx";
 import {observer} from "mobx-react-lite";
 import {useParams} from "react-router-dom";
 import {useStore} from "../../app/stores/store.ts";
@@ -11,14 +10,11 @@ import ProfileActivities from "./ProfileActivities.tsx";
 export default observer(function ProfilePage() {
     const {username} = useParams<{ username: string }>();
     const {profileStore} = useStore();
-    const {loadingProfile, loadProfile, profile, setActiveTab } = profileStore;
+    const {loadingProfile, loadProfile, profile } = profileStore;
     
     useEffect(() =>{
         (async () => {if (username) await loadProfile(username)})();
-        return () => {
-            setActiveTab(0);
-        }
-    }, [loadProfile, username, setActiveTab])
+    }, [loadProfile, username])
     
     if(loadingProfile) return <LoadingComponent content={'Loading profile'} />
     

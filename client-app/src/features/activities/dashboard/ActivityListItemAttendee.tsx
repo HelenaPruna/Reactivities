@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {Image, List, ListItem, Popup} from "semantic-ui-react";
+import { Label, List, ListItem, Popup} from "semantic-ui-react";
 import {Profile} from "../../../app/models/profile.ts";
 import {Link} from "react-router-dom";
 
@@ -8,21 +8,21 @@ interface Props{
 }
 
 export default observer(function ActivityListItemAttendee({attendees}: Props) {
-    const styles = {
-        borderColor: 'orange',
-        borderWidth: 2
-    }
     return(
         <List horizontal>
             {attendees.map(attendee => (
                 <Popup hoverable key={attendee.username} content={attendee.displayName} trigger={
                         <ListItem key={attendee.username} as={Link} to={`/profiles/${attendee.username}`}>
-                            <Image 
-                                size='mini' 
-                                circular src={attendee.image || '/assets/user.png'} 
-                                bordered
-                                style={attendee.following ? styles : null}
-                            />
+                            <Label circular color={attendee.icon} content={attendee.displayName[0]}
+                                   style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    width: "35px", // Adjust size as needed
+                                    height: "35px", // Equal width and height ensure a perfect circle
+                                    fontSize: "15px", // Adjust font size to fit inside
+                                    padding: 0, // Remove any default padding
+                                }} />
                         </ListItem>
                     }>
                 </Popup>

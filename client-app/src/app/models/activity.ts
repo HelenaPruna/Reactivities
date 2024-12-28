@@ -13,6 +13,7 @@ export interface Activity {
     isGoing: boolean;
     isHost: boolean;
     host?: Profile;
+    organizers: Profile[];
     attendees: Profile[]
 }
 
@@ -28,6 +29,7 @@ export class ActivityFormValues {
     category: string = '';
     description: string = '';
     date: Date |null = null;
+    organizers: Profile[] | null = null;
     city: string = '';
     venue: string = '';
     
@@ -40,6 +42,7 @@ export class ActivityFormValues {
             this.date = activity.date;
             this.city = activity.city;
             this.venue = activity.venue;
+            this.organizers = activity.organizers;
         }
     }
 }

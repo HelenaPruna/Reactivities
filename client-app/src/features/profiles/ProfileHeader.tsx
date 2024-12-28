@@ -13,9 +13,19 @@ export default observer(function ProfileHeader({profile}: Props) {
                 <Grid.Column width={12}>
                     <Item.Group>
                         <Item>
-                            <Label circular color={'blue'} key={'blue'} content={profile.displayName[0]}/>
-                            <Item.Content verticalAlign='middle'>
-                                <Header as='h1' content={profile.displayName}/>
+                            <Label circular color={profile.icon} content={profile.displayName[0]}
+                                   style={{
+                                       display: "flex",
+                                       justifyContent: "center",
+                                       alignItems: "center",
+                                       width: "36px", // Adjust size as needed
+                                       height: "36px", // Equal width and height ensure a perfect circle
+                                       fontSize: "20px", // Adjust font size to fit inside
+                                       padding: 0, // Remove any default padding
+                                   }}
+                            />
+                            <Item.Content style={{alignContent: "center"}}>
+                                <Header as='h1' content={profile.displayName}  />
                             </Item.Content>
                         </Item>
                     </Item.Group>

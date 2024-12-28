@@ -26,8 +26,7 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _userManager.Users.Include(p => p.Photos)
-            .FirstOrDefaultAsync(x => x.Email == loginDto.Email);
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
         if (user == null) return Unauthorized();
 
         var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
@@ -70,10 +69,10 @@ public class AccountController : ControllerBase
         
     }
     
-    private string RandomColor() 
+    private static string RandomColor() 
     {
-        string[] semanticColors = ["Red", "Orange", "Yellow", "Olive", "Green", "Teal", "Blue", "Violet", 
-            "Purple", "Pink", "Brown", "Grey", "Black" ];
+        string[] semanticColors = ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", 
+            "purple", "pink", "brown", "grey", "black" ];
         var pos = new Random().Next(0, semanticColors.Length);
         return semanticColors[pos];
     } 
@@ -81,8 +80,7 @@ public class AccountController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
-        var user = await _userManager.Users.Include(p => p.Photos)
-            .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
         return CreateUserObject(user);
     }
     
@@ -92,11 +90,24 @@ public class AccountController : ControllerBase
             {
                 DisplayName = user.DisplayName,
                 Token = _tokenService.CreateToken(user),
-                Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
+                // Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
                 Username = user.UserName,
                 Icon = user.Icon
             };
         }
     
+    [HttpGet("users/identifiers")]
+    public async Task<ActionResult<List<UserIdentifierDto>>> GetUserIdentifiers()
+    {
+        var users = await _userManager.Users
+            .Select(user => new UserIdentifierDto
+            {
+                Username = user.UserName,
+                DisplayName = user.DisplayName
+            })
+            .ToListAsync();
+
+        return Ok(users);
+    }
 }
 
