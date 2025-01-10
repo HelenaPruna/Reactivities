@@ -1,4 +1,4 @@
-import { Grid, Header, Item, Label, Segment} from "semantic-ui-react";
+import {Grid, Header, Item, Label, Segment, SemanticCOLORS} from "semantic-ui-react";
 import {Profile} from "../../app/models/profile.ts";
 import {observer} from "mobx-react-lite";
 
@@ -13,7 +13,7 @@ export default observer(function ProfileHeader({profile}: Props) {
                 <Grid.Column width={12}>
                     <Item.Group>
                         <Item>
-                            <Label circular color={profile.icon} content={profile.displayName[0]}
+                            <Label circular color={profile.icon as SemanticCOLORS} content={profile.displayName[0]}
                                    style={{
                                        display: "flex",
                                        justifyContent: "center",

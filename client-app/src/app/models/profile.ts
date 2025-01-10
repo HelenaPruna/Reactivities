@@ -1,12 +1,11 @@
 import {User} from "./user.ts";
-import {SemanticCOLORS} from "semantic-ui-react";
 
 export interface Profile {
     username: string;
     displayName: string;
     image?: string;
     bio?: string;
-    icon?: SemanticCOLORS;
+    icon?: String;
     photos?: Photo[]
 }
 

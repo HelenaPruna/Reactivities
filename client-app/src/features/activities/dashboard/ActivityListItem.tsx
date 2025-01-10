@@ -6,7 +6,7 @@ import {
     ItemGroup,
     ItemHeader, Label,
     Segment,
-    SegmentGroup
+    SegmentGroup, SemanticCOLORS
 } from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {Activity} from "../../../app/models/activity.ts";
@@ -35,7 +35,7 @@ export default function ActivityListItem({activity}: Props) {
                             fontSize: "20px", // Adjust font size to fit inside
                             padding: 0, // Remove any default padding
                             }} 
-                               color={activity.host?.icon} content={activity.host?.displayName[0]}  />
+                               color={activity.host?.icon as SemanticCOLORS} content={activity.host?.displayName[0]}  />
                         <ItemContent style={{marginLeft: 5}} >
                             <ItemHeader as={Link} to={`/activities/${activity.id}`} >{activity.title}</ItemHeader>
                             <ItemDescription>Hosted by <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link> </ItemDescription>

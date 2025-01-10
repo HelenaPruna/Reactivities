@@ -3,9 +3,8 @@ import {makeAutoObservable, runInAction} from "mobx";
 import agent from "../api/agent.ts";
 import {store} from "./store.ts";
 import {router} from "../router/Routes.tsx";
-import {SemanticCOLORS} from "semantic-ui-react";
 
-const colors: SemanticCOLORS[] = [
+const colors = [
     'red',
     'orange',
     'yellow',
@@ -18,7 +17,6 @@ const colors: SemanticCOLORS[] = [
     'pink',
     'brown',
     'grey',
-    'black',
 ]
 
 export default class UserStore {

@@ -1,4 +1,14 @@
-import {Button, Container, Dropdown, DropdownItem, DropdownMenu, Label, Menu, MenuItem} from "semantic-ui-react";
+import {
+    Button,
+    Container,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    Label,
+    Menu,
+    MenuItem,
+    SemanticCOLORS
+} from "semantic-ui-react";
 import {Link, NavLink} from "react-router-dom";
 import {useStore} from "../stores/store.ts";
 import {observer} from "mobx-react-lite";
@@ -17,7 +27,7 @@ export default observer(function NavBar(){
                     <Button as={NavLink} to='/createActivity' positive content={"Create Activity"}/>
                 </MenuItem>
                 <MenuItem position='right'>
-                    <Label circular color={user?.icon || 'black'} style={{marginRight: 5}} content={user?.displayName[0]} />
+                    <Label circular color={user?.icon as SemanticCOLORS} style={{marginRight: 5}} content={user?.displayName[0]} />
                     <Dropdown pointing='top left' text={user?.displayName}>
                         <DropdownMenu>
                             <DropdownItem as={Link} to={`/profiles/${user?.username}`} text='My Profile' icon='user' />
