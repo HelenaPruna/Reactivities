@@ -7,9 +7,6 @@ export interface Profile {
     image?: string;
     bio?: string;
     icon?: SemanticCOLORS;
-    followersCount: number;
-    followingCount: number;
-    following: boolean;
     photos?: Photo[]
 }
 
