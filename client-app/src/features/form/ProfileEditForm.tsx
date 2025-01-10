@@ -3,7 +3,6 @@ import {useStore} from "../../app/stores/store.ts";
 import {Form, Formik} from "formik";
 import * as Yup from 'yup';
 import MyTextInput from "../../app/common/form/MyTextInput.tsx";
-import MyTextAreaInput from "../../app/common/form/MyTextArea.tsx";
 import {Button} from "semantic-ui-react";
 
 
@@ -15,7 +14,7 @@ export default observer(function ProfileEditForm({setEditMode}: Props) {
     const {profileStore: {profile, updateProfile}} = useStore();
     return(
         <Formik 
-            initialValues={{displayName: profile?.displayName, bio: profile?.bio}} 
+            initialValues={{displayName: profile?.displayName}} 
             onSubmit={values => {
                     updateProfile(values).then(() => setEditMode(false));
                 }}
@@ -28,7 +27,6 @@ export default observer(function ProfileEditForm({setEditMode}: Props) {
                         placeholder='Display Name'
                         name='displayName'
                     />
-                    <MyTextAreaInput rows={3} placeholder='Add your bio' name='bio' />
                     <Button
                         positive
                         type='submit'
