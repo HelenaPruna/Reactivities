@@ -95,19 +95,5 @@ public class AccountController : ControllerBase
                 Icon = user.Icon
             };
         }
-    
-    [HttpGet("users/identifiers")]
-    public async Task<ActionResult<List<UserIdentifierDto>>> GetUserIdentifiers()
-    {
-        var users = await _userManager.Users
-            .Select(user => new UserIdentifierDto
-            {
-                Username = user.UserName,
-                DisplayName = user.DisplayName
-            })
-            .ToListAsync();
-
-        return Ok(users);
-    }
 }
 

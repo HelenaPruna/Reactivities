@@ -3,7 +3,7 @@ import {Activity, ActivityFormValues} from "../models/activity.ts";
 import {toast} from "react-toastify";
 import {router} from "../router/Routes.tsx";
 import {store} from "../stores/store.ts";
-import {User, UserFormValues, UserIdentifier} from "../models/user.ts";
+import {User, UserFormValues} from "../models/user.ts";
 import {Profile, UserActivity} from "../models/profile.ts";
 import {PaginatedResult} from "../models/pagination.ts";
 
@@ -86,8 +86,8 @@ const Activities = {
 const Account = {
     current: () => requests.get<User>('account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-    register: (user: UserFormValues) => requests.post<User>('/account/register', user),
-    getUserIdentifiers: () => requests.get<UserIdentifier[]>('/account/users/identifiers')
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+    // getUserIdentifiers: () => requests.get<UserIdentifier[]>('/account/users/identifiers')
 }
 
 const Profiles = {
