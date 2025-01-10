@@ -6,14 +6,13 @@ export interface Activity {
     date: Date | null;
     description: string;
     category: string;
-    city: string;
     venue: string;
     hostUsername: string;
     isCancelled: boolean;
     isGoing: boolean;
     isHost: boolean;
     host?: Profile;
-    organizers: Profile[];
+    organizers?: Profile[];
     attendees: Profile[]
 }
 
@@ -29,8 +28,6 @@ export class ActivityFormValues {
     category: string = '';
     description: string = '';
     date: Date |null = null;
-    organizers: Profile[] | null = null;
-    city: string = '';
     venue: string = '';
     
     constructor(activity?: ActivityFormValues) {
@@ -40,9 +37,7 @@ export class ActivityFormValues {
             this.category = activity.category;
             this.description = activity.description;
             this.date = activity.date;
-            this.city = activity.city;
             this.venue = activity.venue;
-            this.organizers = activity.organizers;
         }
     }
 }

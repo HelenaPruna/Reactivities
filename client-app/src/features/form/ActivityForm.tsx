@@ -29,7 +29,6 @@ export default observer(function ActivityForm() {
         description: Yup.string().required(),
         date: Yup.string().required(), // this warning never appears, but still it won't let u submit unless u enter a date 
         venue: Yup.string().required(),
-        city: Yup.string().required(),
     });
     
     
@@ -71,7 +70,6 @@ export default observer(function ActivityForm() {
                             dateFormat='d MMMM yyyy h:mm aa'
                         />
                         <Header content='Location details' sub color='teal'  />
-                        <MyTextInput placeholder='City'  name='city' />
                         <MyTextInput placeholder='Venue'  name='venue' />
                         <Button 
                             disabled={isSubmitting|| !dirty || !isValid}
