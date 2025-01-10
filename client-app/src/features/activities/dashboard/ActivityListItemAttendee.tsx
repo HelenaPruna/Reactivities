@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import { Label, List, ListItem, Popup} from "semantic-ui-react";
+import {Label, List, ListItem, Popup, SemanticCOLORS} from "semantic-ui-react";
 import {Profile} from "../../../app/models/profile.ts";
 import {Link} from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default observer(function ActivityListItemAttendee({attendees}: Props) {
             {attendees.map(attendee => (
                 <Popup hoverable key={attendee.username} content={attendee.displayName} trigger={
                         <ListItem key={attendee.username} as={Link} to={`/profiles/${attendee.username}`}>
-                            <Label circular color={attendee.icon} content={attendee.displayName[0]}
+                            <Label circular color={attendee.icon as SemanticCOLORS} content={attendee.displayName[0]}
                                    style={{
                                     display: "flex",
                                     justifyContent: "center",
