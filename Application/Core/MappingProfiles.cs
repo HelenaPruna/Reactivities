@@ -18,17 +18,14 @@ public class MappingProfiles : Profile
         CreateMap<ActivityAttendee, AttendeeDto>()
             .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.AppUser.DisplayName))
             .ForMember(d => d.Username, o => o.MapFrom(s => s.AppUser.UserName))
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.AppUser.Photos.FirstOrDefault(x => x.IsMain).Url))
             .ForMember(d => d.Icon, o => o.MapFrom(s => s.AppUser.Icon));
 
-        CreateMap<AppUser, Profiles.Profile>()
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.Photos.FirstOrDefault(x => x.IsMain).Url));
+        CreateMap<AppUser, Profiles.Profile>();
 
         CreateMap<Comment, CommentDto>()
             .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.Author.DisplayName))
             .ForMember(d => d.Username, o => o.MapFrom(s => s.Author.UserName))
-            .ForMember(d => d.Icon, o => o.MapFrom(s => s.Author.Icon))
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.Author.Photos.FirstOrDefault(x => x.IsMain).Url));
+            .ForMember(d => d.Icon, o => o.MapFrom(s => s.Author.Icon));
 
         CreateMap<ActivityAttendee, UserActivityDto>()
             .ForMember(d => d.Id, o => o.MapFrom(s => s.ActivityId))

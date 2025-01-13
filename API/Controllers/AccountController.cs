@@ -90,7 +90,6 @@ public class AccountController : ControllerBase
             {
                 DisplayName = user.DisplayName,
                 Token = _tokenService.CreateToken(user),
-                // Image = user?.Photos?.FirstOrDefault(x => x.IsMain)?.Url,
                 Username = user.UserName,
                 Icon = user.Icon
             };
