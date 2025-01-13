@@ -8,19 +8,19 @@ export default observer(function ActivityFilters() {
     return (
         <>
             <Menu vertical size={'large'} style={{width: '100%', marginTop:25}}>
-                <Header icon={'filter'} attached color={'teal'} content={'Filters'} />
+                <Header icon={'filter'} attached color={'teal'} content={'Filtres'} />
                 <MenuItem 
-                    content={'All activities'} 
+                    content={'Totes les activitats'} 
                     active={predicate.has('all')} 
                     onClick={() => setPredicate('all', 'true')} 
                 />
                 <MenuItem 
-                    content={"I'm going"}
+                    content={"Participo"}
                     active={predicate.has('isGoing')}
                     onClick={() => setPredicate('isGoing', 'true')}
                 />
                 <MenuItem 
-                    content={"I'm hosting"}
+                    content={"Sóc l\'organitzadora"}
                     active={predicate.has('isHost')}
                     onClick={() => setPredicate('isHost', 'true')}
                 />
@@ -29,6 +29,7 @@ export default observer(function ActivityFilters() {
             <Calendar 
                 onChange={(date) => setPredicate('startDate', date as Date)} 
                 value={predicate.get('startDate') || new Date()}
+                locale={"ca-CA"}
             />
         </>
     )

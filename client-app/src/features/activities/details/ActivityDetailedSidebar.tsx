@@ -19,7 +19,7 @@ export default observer(function ActivityDetailedSidebar ({activity:{attendees, 
                 inverted
                 color='teal'
             >
-                {attendees.length} {attendees.length === 1 ? 'Person' : 'People'} going
+                {attendees.length} {attendees.length === 1 ? 'Persona apuntada' : 'persones apuntades'} 
             </Segment>
             <Segment attached>
                 <List relaxed divided>
@@ -31,7 +31,7 @@ export default observer(function ActivityDetailedSidebar ({activity:{attendees, 
                                     color='orange'
                                     ribbon='right'
                                 >
-                                    Host
+                                    Organitzadora
                                 </Label>
                             }
                             

@@ -5,6 +5,7 @@ import {format} from "date-fns";
 import {store} from "./store.ts";
 import {Profile} from "../models/profile.ts";
 import {Pagination, PagingParams} from "../models/pagination.ts";
+import {ca} from "date-fns/locale";
 
 export default class ActivityStore {
     activityRegistry = new Map<string, Activity>();
@@ -81,7 +82,7 @@ export default class ActivityStore {
     get groupedActivities() {
         return Object.entries(
             this.activitiesByDate.reduce((activities, activity) => {
-                const date = format( activity.date!, 'dd MMM yyyy');
+                const date = format( activity.date!, 'dd MMM yyyy', {locale: ca});
                 activities[date] = activities[date] ? [...activities[date], activity] : [activity];
                 return activities;
             }, {} as {[key: string]: Activity[]})

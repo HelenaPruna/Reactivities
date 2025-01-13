@@ -4,6 +4,7 @@ import {Activity} from "../../../app/models/activity";
 import {Link} from "react-router-dom";
 import {format} from "date-fns";
 import {useStore} from "../../../app/stores/store.ts";
+import {ca} from "date-fns/locale";
 
 const activityImageStyle = {
     filter: 'brightness(30%)'
@@ -41,9 +42,9 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                                     content={activity.title}
                                     style={{color: 'white'}}
                                 />
-                                <p>{format(activity.date!, 'dd MMM yyyy' )}</p>
+                                <p>{format(activity.date!, 'dd MMMMMM yyyy' , {locale: ca})}</p>
                                 <p>
-                                    Hosted by <strong><Link to={`/profiles/${activity.host?.username}`} >{activity.host?.displayName}</Link></strong>
+                                    Organitzat per <strong><Link to={`/profiles/${activity.host?.username}`} >{activity.host?.displayName}</Link></strong>
                                 </p>
                             </Item.Content>
                         </Item>
@@ -56,20 +57,20 @@ export default observer (function ActivityDetailedHeader({activity}: Props) {
                         <Button
                             color={activity.isCancelled ? 'green' : 'red'}
                             floated='left' basic
-                            content={activity.isCancelled ? 'Re-activate activity' : 'Cancel Activity'}
+                            content={activity.isCancelled ? 'Reactiva l\'activitat' : 'Cancel·la l\'Activitat'}
                             onClick={cancelActivityToggle}
                             loading={loading}
                         />
                         <Button as={Link} disabled={activity.isCancelled}
                                 to={`/manage/${activity.id}`} color='orange' floated='right'>
-                            Edit Event
+                            Modifica l'activitat
                         </Button>
                     </>
                 ) :  activity.isGoing? (
-                    <Button loading={loading} onClick={updateAttendance}>Cancel attendance</Button>
+                    <Button loading={loading} onClick={updateAttendance}>Cancel·la la participació</Button>
                 ) : (
                     <Button disabled={activity.isCancelled} loading={loading} onClick={updateAttendance} color='teal'>
-                        Join Activity
+                        Apunta't a l'activitat!
                     </Button>
                 )}
             </Segment>

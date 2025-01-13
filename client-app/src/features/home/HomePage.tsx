@@ -17,18 +17,18 @@ export default observer(function HomePage(){
                 </Header>
                 {userStore.isLoggedIn ?(
                     <>
-                        <Header as={'h2'} inverted content={'Welcome to Reactivities'} />
+                        <Header as={'h2'} inverted content={'Benvinguda a Reactivities'} />
                         <Button as={Link} to={'/activities'} size={'huge'} inverted>
-                            Go to activities!
+                            Vés a les activitats!
                         </Button>
                     </>
                 ) :(
                     <>
                         <Button onClick={() => modalStore.openModal(<LoginForm/>)} size={'huge'} inverted>
-                            Login!
+                            Inicia sessió!
                         </Button>
                         <Button onClick={() => modalStore.openModal(<RegisterForm />)} size={'huge'} inverted>
-                            Register!
+                            Registra't!
                         </Button>
                     </>
                     

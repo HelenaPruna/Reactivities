@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import {Activity} from "../../../app/models/activity.ts";
 import {format} from "date-fns";
 import ActivityListItemAttendee from "./ActivityListItemAttendee.tsx";
+import {ca} from "date-fns/locale";
 
 
 interface Props{
@@ -38,18 +39,18 @@ export default function ActivityListItem({activity}: Props) {
                                color={activity.host?.icon as SemanticCOLORS} content={activity.host?.displayName[0]}  />
                         <ItemContent style={{marginLeft: 5}} >
                             <ItemHeader as={Link} to={`/activities/${activity.id}`} >{activity.title}</ItemHeader>
-                            <ItemDescription>Hosted by <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link> </ItemDescription>
+                            <ItemDescription>Organitzat per <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link> </ItemDescription>
                             {activity.isHost && (
                                 <ItemDescription>
                                     <Label basic color='orange' >
-                                        You are hosting this activity
+                                        Tu ets la responsable de l'activitat
                                     </Label>
                                 </ItemDescription>
                             )}
                             {activity.isGoing && !activity.isHost && (
                                 <ItemDescription>
                                     <Label basic color='green' >
-                                        You are going to this activity
+                                        Participes en aquesta activitat
                                     </Label>
                                 </ItemDescription>
                             )}
@@ -59,7 +60,7 @@ export default function ActivityListItem({activity}: Props) {
             </Segment>
             <Segment>
                 <span>
-                    <Icon name='clock' /> {format(activity.date!, 'dd MMM yyyy h:mm aa')}
+                    <Icon name='clock' /> {format(activity.date!, 'dd MMM yyyy, HH:mm', {locale: ca})}
                     <Icon name='marker' /> {activity.venue}
                 </span>
             </Segment>
@@ -73,7 +74,7 @@ export default function ActivityListItem({activity}: Props) {
                     to={`/activities/${activity.id}`}
                     color={'teal'}
                     floated={'right'}
-                    content={'View'}
+                    content={'Vés a l\'activitat'}
                 />
             </Segment>
         </SegmentGroup>

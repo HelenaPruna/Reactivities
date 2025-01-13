@@ -1,6 +1,6 @@
-import { Form, Formik} from "formik";
+import {ErrorMessage, Form, Formik} from "formik";
 import MyTextInput from "../../app/common/form/MyTextInput.tsx";
-import {Button, Header} from "semantic-ui-react";
+import {Button, Header, Label} from "semantic-ui-react";
 import {useStore} from "../../app/stores/store.ts";
 import {observer} from "mobx-react-lite";
 
@@ -10,14 +10,17 @@ export default observer(function LoginForm(){
         <Formik 
             initialValues={{email: '', password: '', error: null}} 
             onSubmit={(values, {setErrors}) => userStore.login(values).catch(() =>
-                setErrors({error: 'Invalid email or password'}))}
+                setErrors({error: 'Contrasenya o Email incorrectes'}))}
         >
-            {({handleSubmit, isSubmitting}) => (
+            {({handleSubmit, isSubmitting, errors}) => (
                 <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                    <Header as='h2' content='Login to Reactivities' color="teal" textAlign="center" />
+                    <Header as='h2' content='Inicia sessió' color="teal" textAlign="center" />
                     <MyTextInput placeholder="Email" name='email' />
-                    <MyTextInput placeholder="Password" name='password' type='password' />
-                    <Button loading={isSubmitting} positive content='Login' type='submit' fluid />
+                    <MyTextInput placeholder="Contrasenya" name='password' type='password' />
+                    <ErrorMessage 
+                        name={'error'} render={() => <Label style={{marginBottom: 10}} basic color={'red'} content={errors.error}/>}
+                    /> 
+                    <Button loading={isSubmitting} positive content='Inicia sessió' type='submit' fluid />
                 </Form>
             )}
         </Formik>

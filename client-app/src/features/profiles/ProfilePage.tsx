@@ -16,7 +16,7 @@ export default observer(function ProfilePage() {
         (async () => {if (username) await loadProfile(username)})();
     }, [loadProfile, username])
     
-    if(loadingProfile) return <LoadingComponent content={'Loading profile'} />
+    if(loadingProfile) return <LoadingComponent content={'Carregant el perfil'} />
     
     return(
         <Grid>

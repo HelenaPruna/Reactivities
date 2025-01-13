@@ -15,6 +15,7 @@ import {useEffect} from "react";
 import {UserActivity} from "../../app/models/profile.ts";
 import {Link} from "react-router-dom";
 import {format} from "date-fns";
+import {ca} from "date-fns/locale";
 
 
 export default observer(function ProfileActivities() {
@@ -22,9 +23,9 @@ export default observer(function ProfileActivities() {
     const {profile, userActivities, loadingActivities, loadActivities} = profileStore;
 
     const panes = [
-        {menuItem: 'Future activities', pane: {key: 'future'}},
-        {menuItem: 'Past activities', pane: {key: 'past'}},
-        {menuItem: `Activities hosted by ${profile?.displayName}`, pane: {key: 'hosting'}}
+        {menuItem: 'Activitats futures', pane: {key: 'future'}},
+        {menuItem: 'Activitats passades', pane: {key: 'past'}},
+        {menuItem: `Activitats organitzades per ${profile?.displayName}`, pane: {key: 'hosting'}}
     ];
 
     useEffect(() => {
@@ -39,7 +40,7 @@ export default observer(function ProfileActivities() {
         <TabPane loading={loadingActivities}>
             <Grid>
                 <Grid.Column width={16}>
-                    <Header floated='left' icon='calendar' content={'Activities'}/>
+                    <Header floated='left' icon='calendar' content={'Activitats'}/>
                 </Grid.Column>
                 <GridColumn width={16}>
                     <Tab
@@ -54,8 +55,8 @@ export default observer(function ProfileActivities() {
                                        style={{minHeight: 100, objectFit: 'cover'}}/>
                                 <CardHeader textAlign='center'>{activity.title}</CardHeader>
                                 <Card.Meta textAlign='center'>
-                                    <div>{format(new Date(activity.date), 'do LLL yyyy')}</div>
-                                    <div>{format(new Date(activity.date), 'H:mm')}</div>
+                                    <div>{format(new Date(activity.date), 'do LLLL yyyy', {locale: ca})}</div>
+                                    <div>{format(new Date(activity.date), 'HH:mm', {locale: ca})}</div>
                                 </Card.Meta>
                             </Card>
                         ))}
